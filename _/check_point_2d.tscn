@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://6oq7xk4ikhom"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_ih12t"]
+
+[node name="CheckPoint2D" type="Sprite2D" unique_id=1585526206]
+texture = SubResource("ImageTexture_ih12t")
