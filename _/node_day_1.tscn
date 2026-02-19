@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://3mjrowmx2bb1"]
+
+[ext_resource type="Script" uid="uid://dwgdhk3xdsfcn" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/facade/facade_nes_to_udp.gd" id="1_mwmky"]
+[ext_resource type="Script" uid="uid://csyi6i1k70xws" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_send_integer_message_udp.gd" id="2_ish1d"]
+[ext_resource type="Script" uid="uid://ddjcmkwir4osd" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_controller_to_int.gd" id="3_u7ne7"]
+[ext_resource type="Script" uid="uid://60ryksq12k1c" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/xbox_controller_to_int.gd" id="4_v2i2u"]
+[ext_resource type="Script" uid="uid://batpkfgtryf71" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/delayer/nes_int_delayer.gd" id="5_18jln"]
+[ext_resource type="Script" uid="uid://bty8kgte7clr1" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_save_load_string_value_from_file_memory.gd" id="6_jdjvp"]
+[ext_resource type="Script" uid="uid://cxcxdi1dmtiro" path="res://_/cube.gd" id="7_3pl5g"]
+[ext_resource type="Script" uid="uid://ra8keicv2n4s" path="res://_/bonjour.gd" id="8_bf0ls"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_noarx"]
+
+[node name="Node3D" type="Node3D" unique_id=1316668656]
+transform = Transform3D(0.959619, 0, -0.28130317, 0, 1, 0, 0.28130317, 0, 0.959619, -0.5246898, 0, -0.59660316)
+
+[node name="EloiCode" type="Node" parent="." unique_id=574021232]
+script = ExtResource("1_mwmky")
+target_ipv4 = "10.42.0.11"
+target_port = 3615
+target_index = 1
+
+[node name="SendIntegerUDP" type="Node" parent="EloiCode" unique_id=1523918253]
+script = ExtResource("2_ish1d")
+
+[node name="NesControllerToInt" type="Node" parent="EloiCode" unique_id=629148759]
+script = ExtResource("3_u7ne7")
+metadata/_custom_type_script = "uid://ddjcmkwir4osd"
+
+[node name="XboxControllerToInt" type="Node" parent="EloiCode" unique_id=1622638145]
+script = ExtResource("4_v2i2u")
+metadata/_custom_type_script = "uid://60ryksq12k1c"
+
+[node name="NesIntDelayer" type="Node" parent="EloiCode" unique_id=585688852]
+script = ExtResource("5_18jln")
+metadata/_custom_type_script = "uid://batpkfgtryf71"
+
+[node name="NodeSaveAndLoad" type="Node" parent="EloiCode" unique_id=1050787295]
+
+[node name="SaveIp" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=300921944]
+script = ExtResource("6_jdjvp")
+save_unique_id = "FACADE_IPV4"
+default_if_not_set = "127.0.0.1"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="SavePort" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=11862124]
+script = ExtResource("6_jdjvp")
+save_unique_id = "FACADE_PORT"
+default_if_not_set = "3615"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="SavePlayerIndex" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=1722434962]
+script = ExtResource("6_jdjvp")
+save_unique_id = "FACADE_PLAYER_INDEX"
+default_if_not_set = "1"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="cube" type="MeshInstance3D" parent="." unique_id=482393394]
+transform = Transform3D(0.29095274, 0, -0.9567376, 0, 1, 0, 0.9567376, 0, 0.29095274, 0.6778488, 0.48489898, 0.41671544)
+mesh = SubResource("BoxMesh_noarx")
+script = ExtResource("7_3pl5g")
+
+[node name="NES Code" type="Node" parent="." unique_id=810999847]
+script = ExtResource("8_bf0ls")
+
+[node name="Label" type="Label" parent="." unique_id=830232263]
+anchors_preset = -1
+anchor_right = 0.31
+anchor_bottom = 0.39800003
+offset_left = 616.0
+offset_top = 141.0
+offset_right = 628.88
+offset_bottom = 156.09598
+theme_override_colors/font_color = Color(0.6227795, 0.1390391, 0.17070928, 1)
+theme_override_font_sizes/font_size = 28
+text = "bonjour"
+
+[node name="Button" type="Button" parent="." unique_id=654716333]
+anchors_preset = -1
+anchor_left = 0.703
+anchor_top = 0.003
+anchor_right = 1.0
+anchor_bottom = 0.37600002
+offset_left = -244.85602
+offset_top = 31.056
+offset_right = -331.0
+offset_bottom = -55.64801
+theme_override_font_sizes/font_size = 46
+text = "a"
+
+[node name="Button2" type="Button" parent="." unique_id=64861541]
+offset_left = 831.0
+offset_top = 31.0
+offset_right = 1064.0
+offset_bottom = 186.0
+theme_override_font_sizes/font_size = 43
+text = "B"
+
+[node name="Button3" type="Button" parent="." unique_id=1332411539]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 790.0
+offset_top = 275.0
+offset_right = 938.0
+offset_bottom = -333.0
+grow_vertical = 2
+text = "Menu Left"
+
+[node name="Button4" type="Button" parent="." unique_id=1918616194]
+anchors_preset = -1
+anchor_left = -0.15200001
+anchor_right = 0.125
+anchor_bottom = 0.37300003
+offset_left = 819.104
+offset_top = 273.0
+offset_right = 649.0
+offset_bottom = 74.29599
+text = "touche start"
+
+[node name="Button5" type="Button" parent="." unique_id=623101091]
+offset_right = 160.0
+offset_bottom = 102.0
+text = "haut"
+
+[node name="Button6" type="Button" parent="." unique_id=2036564973]
+offset_left = 12.0
+offset_top = 184.0
+offset_right = 170.0
+offset_bottom = 293.0
+text = "bas"
+
+[connection signal="on_integer_to_send_requested" from="EloiCode/NesControllerToInt" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_to_send_requested_with_milliseconds_delay" from="EloiCode/NesControllerToInt" to="EloiCode/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="on_integer_to_send_requested" from="EloiCode/XboxControllerToInt" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_with_millisecond_delay_to_send_requested" from="EloiCode/XboxControllerToInt" to="EloiCode/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="action_integer_requested" from="EloiCode/NesIntDelayer" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="button_down" from="Button" to="EloiCode/XboxControllerToInt" method="press_key_a"]
+[connection signal="button_up" from="Button" to="EloiCode/XboxControllerToInt" method="release_key_a"]
+[connection signal="pressed" from="Button" to="NES Code" method="sauter"]
+[connection signal="pressed" from="Button2" to="NES Code" method="sauter"]
+[connection signal="pressed" from="Button3" to="NES Code" method="touche_menu_gauche_select"]
+[connection signal="pressed" from="Button4" to="NES Code" method="touche_menu_droit_start"]
+[connection signal="pressed" from="Button5" to="NES Code" method="touche_fleche_haut"]
+[connection signal="pressed" from="Button6" to="NES Code" method="touche_fleche_bas"]
