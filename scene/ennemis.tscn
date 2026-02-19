@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b7ih1gx3f52ke"]
 
 [ext_resource type="Texture2D" uid="uid://ba2sivdml3dm5" path="res://asset/sprites/slime_purple.png" id="1_nepeg"]
+[ext_resource type="Script" uid="uid://bmehignxagp32" path="res://script/ennemis.gd" id="1_tdbbp"]
 [ext_resource type="PackedScene" uid="uid://15hsenbamnps" path="res://scene/killzone.tscn" id="2_tdbbp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4mf0"]
@@ -43,6 +44,7 @@ animations = [{
 size = Vector2(8, 13)
 
 [node name="Ennemis" type="Node2D" unique_id=1445126636]
+script = ExtResource("1_tdbbp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=441564408]
 position = Vector2(0, -7)
@@ -58,7 +60,7 @@ position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_jvidw")
 
 [node name="RayCastRight" type="RayCast2D" parent="." unique_id=1763997772]
-target_position = Vector2(10, 0)
+target_position = Vector2(9, 0)
 
 [node name="RayCastLeft" type="RayCast2D" parent="." unique_id=324960492]
 target_position = Vector2(-9, 0)
