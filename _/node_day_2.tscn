@@ -1,0 +1,253 @@
+[gd_scene format=3 uid="uid://esq687byfl6j"]
+
+[ext_resource type="Script" uid="uid://bjngdes58no60" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/facade/francais/francais_facade_nes_udp.gd" id="1_x5ocy"]
+[ext_resource type="Script" uid="uid://dwgdhk3xdsfcn" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/facade/facade_nes_to_udp.gd" id="2_6pckg"]
+[ext_resource type="Script" uid="uid://bvjv1mtx3xovm" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/facade/nes/play_to_check/_10_seconds_ninja/keyboard/nes_fr_jouer_10_seconds_ninja.gd" id="2_enyuq"]
+[ext_resource type="Texture2D" uid="uid://c052oi13teyq8" path="res://addons/2026_01_18_gdp_nes_controller_udp/assets/2d/xbox/a.png" id="3_jqwdm"]
+[ext_resource type="Script" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_res_target_player_by_udp.gd" id="3_rflko"]
+[ext_resource type="Script" uid="uid://csyi6i1k70xws" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_send_integer_message_udp.gd" id="4_dp3ch"]
+[ext_resource type="Script" uid="uid://5sfgv5jc0gxu" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_texture_button_plus_to_down_up_bool.gd" id="4_ulpxa"]
+[ext_resource type="Script" uid="uid://ddjcmkwir4osd" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_controller_to_int.gd" id="5_fsiby"]
+[ext_resource type="Texture2D" uid="uid://cfg3k1aaeru3y" path="res://addons/2026_01_18_gdp_nes_controller_udp/assets/2d/xbox/b.png" id="5_gp72j"]
+[ext_resource type="Script" uid="uid://60ryksq12k1c" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/xbox_controller_to_int.gd" id="6_hxauk"]
+[ext_resource type="Texture2D" uid="uid://cc5cbkk5unknu" path="res://addons/2026_01_18_gdp_nes_controller_udp/assets/2d/xbox/menu.png" id="6_iwwj1"]
+[ext_resource type="Texture2D" uid="uid://dhfakprofgdou" path="res://addons/2026_01_18_gdp_nes_controller_udp/assets/2d/xbox/Start.png" id="7_wjdid"]
+[ext_resource type="Script" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/keyboard_controller_to_int.gd" id="7_xgrle"]
+[ext_resource type="Script" uid="uid://batpkfgtryf71" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/delayer/nes_int_delayer.gd" id="8_fgna3"]
+[ext_resource type="Texture2D" uid="uid://bwx4h2y551qgq" path="res://addons/2026_01_18_gdp_nes_controller_udp/assets/2d/xbox/dpad_left.png" id="8_x5ocy"]
+[ext_resource type="Texture2D" uid="uid://cvfn5x553acfd" path="res://addons/2026_01_18_gdp_nes_controller_udp/assets/2d/xbox/dpad_right.png" id="9_6pckg"]
+[ext_resource type="Texture2D" uid="uid://cg02sfdtrf24g" path="res://addons/2026_01_18_gdp_nes_controller_udp/assets/2d/xbox/dpad_down.png" id="10_rflko"]
+[ext_resource type="Texture2D" uid="uid://dfegk2rghlkfp" path="res://addons/2026_01_18_gdp_nes_controller_udp/assets/2d/xbox/dpad_up.png" id="11_dp3ch"]
+[ext_resource type="Script" uid="uid://ce3wk1gb164fi" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/input/nes_input_map_action_down_up.gd" id="12_fsiby"]
+[ext_resource type="Script" uid="uid://c5mfy15h5iwch" path="res://_/ninja_10s.gd" id="20_6pckg"]
+
+[sub_resource type="Resource" id="Resource_o7v2n"]
+script = ExtResource("3_rflko")
+
+[node name="NodeDay" type="Node" unique_id=949029739]
+
+[node name="PlayToCheckKeyboard10SecondsNinja" type="Node" parent="." unique_id=1749833123]
+
+[node name="FrancaisFacadeNesToUdp" type="Node" parent="PlayToCheckKeyboard10SecondsNinja" unique_id=2101678709 node_paths=PackedStringArray("facade_nes")]
+script = ExtResource("1_x5ocy")
+facade_nes = NodePath("FacadeNesToUdp")
+
+[node name="FacadeNesToUdp" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" unique_id=574021232 node_paths=PackedStringArray("udp_sender", "nes_pad", "int_delayer", "xbox", "keyboard")]
+script = ExtResource("2_6pckg")
+udp_sender = NodePath("SendIntegerUDP")
+nes_pad = NodePath("NesControllerToInt")
+int_delayer = NodePath("NesIntDelayer")
+xbox = NodePath("XboxControllerToInt")
+keyboard = NodePath("KeyboardControllerToInt")
+target_at_init = SubResource("Resource_o7v2n")
+target_ipv4 = "gfjg"
+
+[node name="SendIntegerUDP" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp" unique_id=1523918253]
+script = ExtResource("4_dp3ch")
+
+[node name="NesControllerToInt" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp" unique_id=629148759]
+script = ExtResource("5_fsiby")
+metadata/_custom_type_script = "uid://ddjcmkwir4osd"
+
+[node name="XboxControllerToInt" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp" unique_id=1622638145]
+script = ExtResource("6_hxauk")
+metadata/_custom_type_script = "uid://60ryksq12k1c"
+
+[node name="KeyboardControllerToInt" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp" unique_id=1683305880]
+script = ExtResource("7_xgrle")
+
+[node name="NesIntDelayer" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp" unique_id=585688852]
+script = ExtResource("8_fgna3")
+metadata/_custom_type_script = "uid://batpkfgtryf71"
+
+[node name="NesFrJouer10SeconsdNinja" type="Node" parent="PlayToCheckKeyboard10SecondsNinja" unique_id=1603078905 node_paths=PackedStringArray("nes_francais", "debug_label")]
+script = ExtResource("2_enyuq")
+nes_francais = NodePath("../FrancaisFacadeNesToUdp")
+debug_label = NodePath("../Label")
+utiliser_des_prints_pour_debugger = false
+utiliser_une_boucle_infinie_au_demarrage = false
+metadata/_custom_type_script = "uid://dmilg8mjcjq5k"
+
+[node name="Button" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/NesFrJouer10SeconsdNinja" unique_id=1065506435]
+anchors_preset = -1
+anchor_left = 0.089
+anchor_top = 0.069000006
+anchor_right = 0.38700002
+anchor_bottom = 0.37300003
+offset_left = 0.47200012
+offset_top = 0.28799438
+offset_right = 0.17596436
+offset_bottom = 0.29599
+text = "level 1"
+
+[node name="Label" type="Label" parent="PlayToCheckKeyboard10SecondsNinja" unique_id=1187955331]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0000"
+
+[node name="Panel UI NES Control" type="Panel" parent="PlayToCheckKeyboard10SecondsNinja" unique_id=820363324]
+anchors_preset = -1
+anchor_top = 0.87600005
+anchor_right = 0.99200004
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -9.200012
+offset_right = 0.39996338
+offset_bottom = -14.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control" unique_id=626199551]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NES A" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer" unique_id=928347181]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("3_jqwdm")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_ulpxa")
+metadata/_custom_type_script = "uid://5sfgv5jc0gxu"
+
+[node name="NES B" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer" unique_id=302678160]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("5_gp72j")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_ulpxa")
+metadata/_custom_type_script = "uid://5sfgv5jc0gxu"
+
+[node name="NES LEFT MENU" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer" unique_id=392404719]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+text = "ML"
+icon = ExtResource("6_iwwj1")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_ulpxa")
+metadata/_custom_type_script = "uid://5sfgv5jc0gxu"
+
+[node name="NES RIGHT MENU" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer" unique_id=1604550774]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+text = "MR"
+icon = ExtResource("7_wjdid")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_ulpxa")
+metadata/_custom_type_script = "uid://5sfgv5jc0gxu"
+
+[node name="NES ARROW LEFT" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer" unique_id=1738076425]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("8_x5ocy")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_ulpxa")
+metadata/_custom_type_script = "uid://5sfgv5jc0gxu"
+
+[node name="NES ARROW RIGHT" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer" unique_id=1755156573]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("9_6pckg")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_ulpxa")
+metadata/_custom_type_script = "uid://5sfgv5jc0gxu"
+
+[node name="NES ARROW DOWN" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer" unique_id=2103414924]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("10_rflko")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_ulpxa")
+metadata/_custom_type_script = "uid://5sfgv5jc0gxu"
+
+[node name="NES ARROW UP" type="Button" parent="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer" unique_id=166020206]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("11_dp3ch")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_ulpxa")
+metadata/_custom_type_script = "uid://5sfgv5jc0gxu"
+
+[node name="Input NES Control" type="Node" parent="PlayToCheckKeyboard10SecondsNinja" unique_id=1831364424]
+
+[node name="BUTTON A" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/Input NES Control" unique_id=664797906]
+script = ExtResource("12_fsiby")
+action_name = "NES_A"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="BUTTON B" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/Input NES Control" unique_id=1304917759]
+script = ExtResource("12_fsiby")
+action_name = "NES_B"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="BUTTON ML" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/Input NES Control" unique_id=1541786785]
+script = ExtResource("12_fsiby")
+action_name = "NES_MENU_LEFT"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="BUTTON MR" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/Input NES Control" unique_id=521047243]
+script = ExtResource("12_fsiby")
+action_name = "NES_MENU_RIGHT"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="BUTTON AL" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/Input NES Control" unique_id=956561623]
+script = ExtResource("12_fsiby")
+action_name = "NES_ARROW_LEFT"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="BUTTON AR" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/Input NES Control" unique_id=1841004859]
+script = ExtResource("12_fsiby")
+action_name = "NES_ARROW_RIGHT"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="BUTTON AD" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/Input NES Control" unique_id=178145922]
+script = ExtResource("12_fsiby")
+action_name = "NES_ARROW_DOWN"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="BUTTON AU" type="Node" parent="PlayToCheckKeyboard10SecondsNinja/Input NES Control" unique_id=2052928674]
+script = ExtResource("12_fsiby")
+action_name = "NES_ARROW_UP"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="jeu" type="Node" parent="." unique_id=711320627]
+script = ExtResource("20_6pckg")
+
+[connection signal="on_integer_to_send_requested" from="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/NesControllerToInt" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_to_send_requested_with_milliseconds_delay" from="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/NesControllerToInt" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="on_integer_to_send_requested" from="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/XboxControllerToInt" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_with_millisecond_delay_to_send_requested" from="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/XboxControllerToInt" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="on_integer_to_send_requested" from="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/KeyboardControllerToInt" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_with_millisecond_delay_to_send_requested" from="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/KeyboardControllerToInt" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="action_integer_requested" from="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/NesIntDelayer" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp/FacadeNesToUdp/SendIntegerUDP" method="send_integer"]
+[connection signal="pressed" from="PlayToCheckKeyboard10SecondsNinja/NesFrJouer10SeconsdNinja/Button" to="PlayToCheckKeyboard10SecondsNinja/NesFrJouer10SeconsdNinja" method="level_one"]
+[connection signal="on_down_up_value_changed" from="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer/NES A" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_a_comme"]
+[connection signal="on_down_up_value_changed" from="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer/NES B" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_b_comme"]
+[connection signal="on_down_up_value_changed" from="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer/NES LEFT MENU" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_menu_gauche_select_comme"]
+[connection signal="on_down_up_value_changed" from="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer/NES RIGHT MENU" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_menu_droite_start_comme"]
+[connection signal="on_down_up_value_changed" from="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer/NES ARROW LEFT" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_fleche_gauche_comme"]
+[connection signal="on_down_up_value_changed" from="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer/NES ARROW RIGHT" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_fleche_droite_comme"]
+[connection signal="on_down_up_value_changed" from="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer/NES ARROW DOWN" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_fleche_bas_comme"]
+[connection signal="on_down_up_value_changed" from="PlayToCheckKeyboard10SecondsNinja/Panel UI NES Control/HBoxContainer/NES ARROW UP" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_fleche_haut_comme"]
+[connection signal="on_down_up" from="PlayToCheckKeyboard10SecondsNinja/Input NES Control/BUTTON A" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_a_comme"]
+[connection signal="on_down_up" from="PlayToCheckKeyboard10SecondsNinja/Input NES Control/BUTTON B" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_b_comme"]
+[connection signal="on_down_up" from="PlayToCheckKeyboard10SecondsNinja/Input NES Control/BUTTON ML" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_menu_gauche_select_comme"]
+[connection signal="on_down_up" from="PlayToCheckKeyboard10SecondsNinja/Input NES Control/BUTTON MR" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_menu_droite_start_comme"]
+[connection signal="on_down_up" from="PlayToCheckKeyboard10SecondsNinja/Input NES Control/BUTTON AL" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_fleche_gauche_comme"]
+[connection signal="on_down_up" from="PlayToCheckKeyboard10SecondsNinja/Input NES Control/BUTTON AR" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_fleche_droite_comme"]
+[connection signal="on_down_up" from="PlayToCheckKeyboard10SecondsNinja/Input NES Control/BUTTON AD" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_fleche_bas_comme"]
+[connection signal="on_down_up" from="PlayToCheckKeyboard10SecondsNinja/Input NES Control/BUTTON AU" to="PlayToCheckKeyboard10SecondsNinja/FrancaisFacadeNesToUdp" method="nes_basique_definir_touche_fleche_haut_comme"]

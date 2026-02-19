@@ -1,0 +1,254 @@
+[gd_scene format=3 uid="uid://3mjrowmx2bb1"]
+
+[ext_resource type="Script" uid="uid://ra8keicv2n4s" path="res://_/bonjour.gd" id="1_a202f"]
+[ext_resource type="Script" uid="uid://dwgdhk3xdsfcn" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/facade/facade_nes_to_udp.gd" id="1_wc5p8"]
+[ext_resource type="Script" uid="uid://csyi6i1k70xws" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_send_integer_message_udp.gd" id="2_jsk3o"]
+[ext_resource type="Script" uid="uid://ddjcmkwir4osd" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_controller_to_int.gd" id="3_4arys"]
+[ext_resource type="Script" uid="uid://60ryksq12k1c" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/xbox_controller_to_int.gd" id="4_6iypd"]
+[ext_resource type="Script" uid="uid://batpkfgtryf71" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/delayer/nes_int_delayer.gd" id="5_tereu"]
+[ext_resource type="Script" uid="uid://bty8kgte7clr1" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_save_load_string_value_from_file_memory.gd" id="6_cdqbm"]
+[ext_resource type="Script" uid="uid://ce3wk1gb164fi" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/input/nes_input_map_action_down_up.gd" id="8_jsk3o"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_noarx"]
+
+[node name="Node3D" type="Node3D" unique_id=1200637075]
+
+[node name="EloiCode" type="Node" parent="." unique_id=574021232]
+script = ExtResource("1_wc5p8")
+target_ipv4 = "127.0.0.1"
+target_port = 3615
+target_index = 1
+
+[node name="SendIntegerUDP" type="Node" parent="EloiCode" unique_id=1523918253]
+script = ExtResource("2_jsk3o")
+
+[node name="NesControllerToInt" type="Node" parent="EloiCode" unique_id=629148759]
+script = ExtResource("3_4arys")
+metadata/_custom_type_script = "uid://ddjcmkwir4osd"
+
+[node name="XboxControllerToInt" type="Node" parent="EloiCode" unique_id=1622638145]
+script = ExtResource("4_6iypd")
+metadata/_custom_type_script = "uid://60ryksq12k1c"
+
+[node name="NesIntDelayer" type="Node" parent="EloiCode" unique_id=585688852]
+script = ExtResource("5_tereu")
+metadata/_custom_type_script = "uid://batpkfgtryf71"
+
+[node name="NodeSaveAndLoad" type="Node" parent="EloiCode" unique_id=1050787295]
+
+[node name="SaveIp" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=300921944]
+script = ExtResource("6_cdqbm")
+save_unique_id = "FACADE_IPV4"
+default_if_not_set = "127.0.0.1"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="SavePort" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=11862124]
+script = ExtResource("6_cdqbm")
+save_unique_id = "FACADE_PORT"
+default_if_not_set = "3615"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="SavePlayerIndex" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=1722434962]
+script = ExtResource("6_cdqbm")
+save_unique_id = "FACADE_PLAYER_INDEX"
+default_if_not_set = "1"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=221353310]
+transform = Transform3D(0.69354665, 0.679036, -0.24063046, -0.65239424, 0.7336724, 0.19001819, 0.30557314, 0.025199367, 0.9518352, 0.8272538, 0.9673016, 1.5049314)
+mesh = SubResource("BoxMesh_noarx")
+
+[node name="Node" type="Node" parent="." unique_id=1110707379]
+script = ExtResource("1_a202f")
+
+[node name="Label" type="Label" parent="Node" unique_id=1161198559]
+visible = false
+anchors_preset = -1
+anchor_right = 0.24900001
+anchor_bottom = 0.42400002
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 3.1519775
+offset_bottom = -12.752014
+theme_override_colors/font_color = Color(0, 3.407356, 1.58156, 1)
+theme_override_font_sizes/font_size = 32
+text = "Bonjour"
+
+[node name="Button9" type="Button" parent="Node" unique_id=1418787866]
+anchors_preset = -1
+anchor_left = 0.726
+anchor_top = 0.56200004
+anchor_right = 0.95900005
+anchor_bottom = 0.75000006
+offset_left = -0.35198975
+offset_top = -0.17602539
+offset_right = -7.7680664
+offset_bottom = -3.0517578e-05
+text = "A"
+
+[node name="Button" type="Button" parent="Node" unique_id=327706956]
+anchors_preset = -1
+anchor_left = 0.16800001
+anchor_top = 0.483
+anchor_right = 0.22000001
+anchor_bottom = 0.54200006
+offset_left = 0.46398926
+offset_top = 0.015991211
+offset_right = -0.4400177
+offset_bottom = -0.21603394
+
+[node name="Button2" type="Button" parent="Node" unique_id=1407605289]
+anchors_preset = -1
+anchor_left = 0.46800002
+anchor_top = 0.55600005
+anchor_right = 0.68100005
+anchor_bottom = 0.744
+offset_left = -5.1360474
+offset_top = 2.711975
+offset_right = -5.512085
+offset_bottom = 2.8880005
+theme_override_colors/font_color = Color(0.84313726, 0.8745098, 0.8745098, 1)
+theme_override_colors/font_focus_color = Color(11.749001, 11.749001, 7.876191, 1)
+text = "B"
+
+[node name="Button3" type="Button" parent="Node" unique_id=312922336]
+anchors_preset = -1
+anchor_left = 0.27100003
+anchor_top = 0.551
+anchor_right = 0.43500003
+anchor_bottom = 0.62200004
+offset_left = -0.1920166
+offset_top = -0.04800415
+offset_right = -0.120025635
+offset_bottom = -0.056030273
+text = "Start"
+
+[node name="Button4" type="Button" parent="Node" unique_id=1528395162]
+anchors_preset = -1
+anchor_left = 0.275
+anchor_top = 0.68500006
+anchor_right = 0.437
+anchor_bottom = 0.753
+offset_left = 0.19998169
+offset_top = 0.1199646
+offset_right = -0.42401123
+offset_bottom = 0.055999756
+text = "select"
+
+[node name="Button5" type="Button" parent="Node" unique_id=814671879]
+anchors_preset = -1
+anchor_left = 0.11000001
+anchor_top = 0.40100002
+anchor_right = 0.148
+anchor_bottom = 0.47800002
+offset_left = 2.2799911
+offset_top = -5.8480225
+offset_right = -0.4960022
+offset_bottom = 0.25598145
+
+[node name="Button6" type="Button" parent="Node" unique_id=800965053]
+anchors_preset = -1
+anchor_left = 0.11100001
+anchor_top = 0.54800004
+anchor_right = 0.147
+anchor_bottom = 0.63600004
+offset_left = 0.12799072
+offset_top = -0.104034424
+offset_right = -0.34399414
+offset_bottom = -0.12802124
+
+[node name="Button6" type="Button" parent="Node/Button6" unique_id=382805256]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11100001
+anchor_top = 0.54800004
+anchor_right = 0.147
+anchor_bottom = 0.63600004
+offset_left = 0.12799072
+offset_top = -0.104034424
+offset_right = -0.34399414
+offset_bottom = -0.12802124
+
+[node name="Button7" type="Button" parent="Node" unique_id=385827058]
+anchors_preset = -1
+anchor_left = 0.052
+anchor_top = 0.48600003
+anchor_right = 0.096
+anchor_bottom = 0.54300004
+offset_left = -2.9039993
+offset_top = -1.928009
+offset_right = 0.40799713
+offset_bottom = 0.13598633
+
+[node name="Button8" type="Button" parent="Node" unique_id=1529029714]
+anchors_preset = -1
+anchor_left = 0.16000001
+anchor_top = 0.485
+anchor_right = 0.21100001
+anchor_bottom = 0.54200006
+offset_left = 759.68
+offset_top = -349.28
+offset_right = 708.928
+offset_bottom = -378.21603
+theme_override_colors/font_color = Color(0.8737883, 0.8788141, 0.845733, 1)
+theme_override_colors/font_focus_color = Color(0.9699587, 0.998601, 7.70092e-07, 1)
+
+[node name="button_a" type="Node" parent="Node" unique_id=1725443260]
+script = ExtResource("8_jsk3o")
+action_name = "button_a"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="button_b" type="Node" parent="Node" unique_id=91387281]
+script = ExtResource("8_jsk3o")
+action_name = "button_b"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="arrow_up" type="Node" parent="Node" unique_id=634863188]
+script = ExtResource("8_jsk3o")
+action_name = "arrow_up"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="arrow_down" type="Node" parent="Node" unique_id=1615252901]
+script = ExtResource("8_jsk3o")
+action_name = "arrow_down"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="arrow_left" type="Node" parent="Node" unique_id=96221869]
+script = ExtResource("8_jsk3o")
+action_name = "arrow_left"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="arrow_right" type="Node" parent="Node" unique_id=90848773]
+script = ExtResource("8_jsk3o")
+action_name = "arrow_right"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[connection signal="on_integer_to_send_requested" from="EloiCode/NesControllerToInt" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_to_send_requested_with_milliseconds_delay" from="EloiCode/NesControllerToInt" to="EloiCode/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="on_integer_to_send_requested" from="EloiCode/XboxControllerToInt" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_with_millisecond_delay_to_send_requested" from="EloiCode/XboxControllerToInt" to="EloiCode/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="action_integer_requested" from="EloiCode/NesIntDelayer" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="button_down" from="Node/Button9" to="EloiCode/XboxControllerToInt" method="press_key_a"]
+[connection signal="button_up" from="Node/Button9" to="EloiCode/XboxControllerToInt" method="release_key_a"]
+[connection signal="pressed" from="Node/Button9" to="Node" method="touche_A"]
+[connection signal="button_down" from="Node/Button" to="EloiCode/XboxControllerToInt" method="press_key_arrow_right"]
+[connection signal="button_up" from="Node/Button" to="EloiCode/NesControllerToInt" method="release_arrow_right"]
+[connection signal="button_down" from="Node/Button2" to="EloiCode/XboxControllerToInt" method="press_key_b"]
+[connection signal="button_up" from="Node/Button2" to="EloiCode/XboxControllerToInt" method="release_key_b"]
+[connection signal="pressed" from="Node/Button3" to="Node" method="touche_start"]
+[connection signal="pressed" from="Node/Button4" to="Node" method="touche_select"]
+[connection signal="button_down" from="Node/Button5" to="EloiCode/XboxControllerToInt" method="press_key_arrow_up"]
+[connection signal="button_up" from="Node/Button5" to="EloiCode/XboxControllerToInt" method="release_key_arrow_up"]
+[connection signal="button_down" from="Node/Button6" to="EloiCode/XboxControllerToInt" method="press_key_arrow_down"]
+[connection signal="button_up" from="Node/Button6" to="EloiCode/XboxControllerToInt" method="release_key_arrow_down"]
+[connection signal="pressed" from="Node/Button6" to="Node" method="touche_felche_bas"]
+[connection signal="button_down" from="Node/Button7" to="EloiCode/XboxControllerToInt" method="press_key_arrow_left"]
+[connection signal="button_up" from="Node/Button7" to="EloiCode/XboxControllerToInt" method="release_key_arrow_left"]
+[connection signal="pressed" from="Node/Button7" to="Node" method="touche_felche_gauche"]
+[connection signal="pressed" from="Node/Button8" to="Node" method="touche_felche_droite"]
+[connection signal="on_down_up" from="Node/button_a" to="EloiCode/XboxControllerToInt" method="set_key_a"]
+[connection signal="on_down_up" from="Node/button_b" to="EloiCode/XboxControllerToInt" method="set_key_b"]
+[connection signal="on_down_up" from="Node/arrow_up" to="EloiCode/XboxControllerToInt" method="set_key_arrow_up"]
+[connection signal="on_down_up" from="Node/arrow_down" to="EloiCode/XboxControllerToInt" method="set_key_arrow_down"]
+[connection signal="on_down_up" from="Node/arrow_left" to="EloiCode/XboxControllerToInt" method="set_key_arrow_left"]
+[connection signal="on_down_up" from="Node/arrow_right" to="EloiCode/XboxControllerToInt" method="set_key_arrow_right"]
