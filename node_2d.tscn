@@ -41,7 +41,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d21ai"]
-size = Vector2(32, 27)
+size = Vector2(20, 24)
 
 [node name="slime" type="Node2D" unique_id=1792315924]
 script = ExtResource("1_epypp")
@@ -57,7 +57,7 @@ frame_progress = 0.09022771
 [node name="kill zone" parent="." unique_id=404920653 instance=ExtResource("2_0e48y")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kill zone" unique_id=958356170]
-position = Vector2(0, -16.5)
+position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_d21ai")
 
 [node name="RayCast_droite" type="RayCast2D" parent="." unique_id=1801511533]
