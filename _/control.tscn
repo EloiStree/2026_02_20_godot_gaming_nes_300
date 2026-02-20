@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://608elj318ke2"]
+
+[ext_resource type="Script" uid="uid://dwcs73bkrm0" path="res://_/nes.gd" id="1_0fbet"]
+[ext_resource type="Script" uid="uid://dwgdhk3xdsfcn" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/facade/facade_nes_to_udp.gd" id="1_iy58a"]
+[ext_resource type="Script" uid="uid://csyi6i1k70xws" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_send_integer_message_udp.gd" id="2_6a6wx"]
+[ext_resource type="Script" uid="uid://ddjcmkwir4osd" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_controller_to_int.gd" id="3_sky72"]
+[ext_resource type="Script" uid="uid://60ryksq12k1c" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/xbox_controller_to_int.gd" id="4_0ytqx"]
+[ext_resource type="Script" uid="uid://batpkfgtryf71" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/delayer/nes_int_delayer.gd" id="5_pxugv"]
+[ext_resource type="Script" uid="uid://bty8kgte7clr1" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/nes_save_load_string_value_from_file_memory.gd" id="6_eh0v1"]
+[ext_resource type="Script" uid="uid://ce3wk1gb164fi" path="res://addons/2026_01_18_gdp_nes_controller_udp/script/input/nes_input_map_action_down_up.gd" id="8_6a6wx"]
+
+[node name="Control" type="Control" unique_id=1725615679]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = 5.0
+offset_right = -17.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EloiCode" type="Node" parent="." unique_id=574021232 node_paths=PackedStringArray("_udp_sender", "_nes_pad", "_int_delayer", "_xbox", "_memory_ip_address", "_memory_port", "_memory_player_index")]
+script = ExtResource("1_iy58a")
+_udp_sender = NodePath("SendIntegerUDP")
+_nes_pad = NodePath("NesControllerToInt")
+_int_delayer = NodePath("NesIntDelayer")
+_xbox = NodePath("XboxControllerToInt")
+_use_save_and_load = false
+_memory_ip_address = NodePath("NodeSaveAndLoad/SaveIp")
+_memory_port = NodePath("NodeSaveAndLoad/SavePort")
+_memory_player_index = NodePath("NodeSaveAndLoad/SavePlayerIndex")
+target_ipv4 = "127.0.0.1"
+target_port = 3615
+target_index = 1
+
+[node name="SendIntegerUDP" type="Node" parent="EloiCode" unique_id=1523918253]
+script = ExtResource("2_6a6wx")
+
+[node name="NesControllerToInt" type="Node" parent="EloiCode" unique_id=629148759]
+script = ExtResource("3_sky72")
+metadata/_custom_type_script = "uid://ddjcmkwir4osd"
+
+[node name="XboxControllerToInt" type="Node" parent="EloiCode" unique_id=1622638145]
+script = ExtResource("4_0ytqx")
+metadata/_custom_type_script = "uid://60ryksq12k1c"
+
+[node name="NesIntDelayer" type="Node" parent="EloiCode" unique_id=585688852]
+script = ExtResource("5_pxugv")
+metadata/_custom_type_script = "uid://batpkfgtryf71"
+
+[node name="NodeSaveAndLoad" type="Node" parent="EloiCode" unique_id=1050787295]
+
+[node name="SaveIp" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=300921944]
+script = ExtResource("6_eh0v1")
+save_unique_id = "FACADE_IPV4"
+default_if_not_set = "127.0.0.1"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="SavePort" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=11862124]
+script = ExtResource("6_eh0v1")
+save_unique_id = "FACADE_PORT"
+default_if_not_set = "3615"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="SavePlayerIndex" type="Node" parent="EloiCode/NodeSaveAndLoad" unique_id=1722434962]
+script = ExtResource("6_eh0v1")
+save_unique_id = "FACADE_PLAYER_INDEX"
+default_if_not_set = "1"
+metadata/_custom_type_script = "uid://bty8kgte7clr1"
+
+[node name="NES" type="Node" parent="." unique_id=1260594023]
+script = ExtResource("1_0fbet")
+
+[node name="ButtonA" type="Button" parent="." unique_id=73067948]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.66300005
+anchor_top = 0.531
+anchor_right = 0.89500004
+anchor_bottom = 0.827
+offset_left = -1.776062
+offset_top = 4.9119873
+offset_right = -23.04004
+offset_bottom = -15.895996
+text = "A"
+
+[node name="ButtonA2" type="Button" parent="." unique_id=159686116]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.46400002
+anchor_top = 0.531
+anchor_right = 0.61
+anchor_bottom = 0.827
+offset_left = -64.528015
+offset_top = -5.0880127
+offset_right = 13.279968
+offset_bottom = -25.895996
+text = "B"
+
+[node name="ButtonA5" type="Button" parent="." unique_id=95563491]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.66300005
+anchor_right = 0.883
+anchor_bottom = 0.26000002
+offset_left = -2.776062
+offset_top = 4.0
+offset_right = -10.216003
+offset_bottom = 6.519989
+text = "Right"
+
+[node name="Button" type="Button" parent="." unique_id=1880555937]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.319
+anchor_right = 0.40600002
+anchor_bottom = 0.25
+offset_left = -21.488007
+offset_right = 16.287964
+text = "haut"
+
+[node name="Button2" type="Button" parent="." unique_id=125966852]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.158
+anchor_right = 0.27600002
+anchor_bottom = 0.224
+offset_left = -0.01600647
+offset_top = 4.0
+offset_right = 0.047973633
+offset_bottom = -0.15200806
+text = "bas "
+
+[node name="Button3" type="Button" parent="." unique_id=538263732]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.629
+anchor_bottom = 0.23500001
+offset_left = 13.0
+offset_top = 11.0
+offset_right = 0.39196777
+offset_bottom = -0.28001404
+text = "gauche"
+
+[node name="Input Sauter" type="Node" parent="." unique_id=1841069538]
+script = ExtResource("8_6a6wx")
+action_name = "SAUTER"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="NesInputMapActionDownUp2" type="Node" parent="." unique_id=315978412]
+script = ExtResource("8_6a6wx")
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="NesInputMapActionDownUp" type="Node" parent="." unique_id=1649156147]
+script = ExtResource("8_6a6wx")
+action_name = "DROITE"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[node name="NesInputMapActionDownUp3" type="Node" parent="." unique_id=1677507788]
+script = ExtResource("8_6a6wx")
+action_name = "AVANT"
+metadata/_custom_type_script = "uid://ce3wk1gb164fi"
+
+[connection signal="on_integer_to_send_requested" from="EloiCode/NesControllerToInt" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_to_send_requested_with_milliseconds_delay" from="EloiCode/NesControllerToInt" to="EloiCode/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="on_integer_to_send_requested" from="EloiCode/XboxControllerToInt" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="on_integer_with_millisecond_delay_to_send_requested" from="EloiCode/XboxControllerToInt" to="EloiCode/NesIntDelayer" method="add_action_to_delay_as_integer_in_milliseconds"]
+[connection signal="action_integer_requested" from="EloiCode/NesIntDelayer" to="EloiCode/SendIntegerUDP" method="send_integer"]
+[connection signal="pressed" from="ButtonA" to="NES" method="touche_a"]
+[connection signal="pressed" from="ButtonA2" to="NES" method="touche_b"]
+[connection signal="button_down" from="ButtonA5" to="EloiCode/XboxControllerToInt" method="press_key_arrow_right"]
+[connection signal="button_up" from="ButtonA5" to="EloiCode/XboxControllerToInt" method="release_key_arrow_right"]
+[connection signal="button_down" from="Button" to="EloiCode/XboxControllerToInt" method="press_key_arrow_up"]
+[connection signal="button_up" from="Button" to="EloiCode/XboxControllerToInt" method="release_key_arrow_up"]
+[connection signal="button_down" from="Button2" to="EloiCode/XboxControllerToInt" method="press_key_arrow_down"]
+[connection signal="button_up" from="Button2" to="EloiCode/XboxControllerToInt" method="release_key_arrow_down"]
+[connection signal="button_down" from="Button3" to="EloiCode/XboxControllerToInt" method="press_key_arrow_left"]
+[connection signal="button_up" from="Button3" to="EloiCode/XboxControllerToInt" method="release_key_arrow_left"]
+[connection signal="on_down_up" from="Input Sauter" to="EloiCode/XboxControllerToInt" method="set_key_a"]
+[connection signal="on_down_up" from="NesInputMapActionDownUp2" to="EloiCode/XboxControllerToInt" method="set_key_b"]
+[connection signal="on_down_up" from="NesInputMapActionDownUp" to="EloiCode/XboxControllerToInt" method="set_key_arrow_right"]
