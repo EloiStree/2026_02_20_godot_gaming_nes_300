@@ -10,10 +10,18 @@ config_version=5
 
 [application]
 
-config/name="Gaming300"
+config/name="GS300 LOELIA"
 run/main_scene="res://scene/game.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://d0eefjb3y66pd"
+
+[autoload]
+
+Music="*uid://dth27axe3hdl0"
 
 [input]
 
