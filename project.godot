@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="HelloGodot"
+config/name="GS300_EVY"
 run/main_scene="uid://gbj8d626hf6n"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://_/icon.svg"
