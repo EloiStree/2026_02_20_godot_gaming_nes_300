@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dm42m2wkm7yd3"]
 
 [ext_resource type="Texture2D" uid="uid://ceamut46i5wiw" path="res://sprites/slime_purple.png" id="1_uramm"]
+[ext_resource type="PackedScene" uid="uid://bhex43smno0jl" path="res://scene/Killzone.tscn" id="2_dregr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dregr"]
 atlas = ExtResource("1_uramm")
@@ -39,15 +40,18 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1h8o2"]
-size = Vector2(14, 14)
+size = Vector2(10, 12)
 
-[node name="Node2D" type="Node2D" unique_id=1083692224]
+[node name="Slime" type="Node2D" unique_id=1083692224]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=462146034]
 sprite_frames = SubResource("SpriteFrames_xtkpt")
 autoplay = "default"
-frame_progress = 0.70027804
+frame_progress = 0.50394934
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=885962472]
-position = Vector2(0, 5)
+[node name="Killzone" parent="." unique_id=340594699 instance=ExtResource("2_dregr")]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" unique_id=885962472]
+position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_1h8o2")
