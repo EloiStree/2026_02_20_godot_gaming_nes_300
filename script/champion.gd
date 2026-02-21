@@ -18,8 +18,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Sauter") and is_on_floor() :
 		velocity.y = JUMP_VELOCITY
 
+	if Input.is_action_just_pressed("restart"):
+		get_tree().reload_current_scene()
+		
+
 	# Get input direction: -1, 0, 1
-	var direction := Input.get_axis("Aller_a_droite", "Aller_a_gauche")
+	var direction := Input.get_axis("Aller_a_gauche", "Aller_a_droite")
 	
 	# Flip the Sprite.
 	

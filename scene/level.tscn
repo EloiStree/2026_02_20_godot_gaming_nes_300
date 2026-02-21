@@ -12,6 +12,9 @@
 [ext_resource type="Script" uid="uid://b4rhi1td4oebd" path="res://script/levier_on_off.gd" id="8_u2b8d"]
 [ext_resource type="PackedScene" uid="uid://dm42m2wkm7yd3" path="res://scene/Enemy.tscn" id="12_gunnj"]
 [ext_resource type="PackedScene" uid="uid://bhex43smno0jl" path="res://scene/Killzone.tscn" id="12_j35ge"]
+[ext_resource type="FontFile" uid="uid://drr1oidleecy4" path="res://fonts/PixelOperator8-Bold.ttf" id="13_3u5es"]
+[ext_resource type="Script" uid="uid://bk3sbvhi3fm5g" path="res://eloi/script/coin_score_count_to_label.gd" id="14_60efd"]
+[ext_resource type="Script" uid="uid://bl6dn1wh6r022" path="res://eloi/script/time_score_start_stop.gd" id="15_ow60o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dmi07"]
 texture = ExtResource("2_36wlx")
@@ -311,6 +314,9 @@ distance = -95.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oxop7"]
 size = Vector2(2137, 84)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3u5es"]
+size = Vector2(126, 237)
+
 [node name="Level" type="Node2D" unique_id=1362485051]
 
 [node name="Champion" parent="." unique_id=1413389212 instance=ExtResource("1_s4405")]
@@ -403,6 +409,12 @@ position = Vector2(-2544, 58)
 [node name="coin10" parent="Pièces" unique_id=1686473898 instance=ExtResource("5_ukt71")]
 position = Vector2(-1632, 186)
 
+[node name="coin11" parent="Pièces" unique_id=90876986 instance=ExtResource("5_ukt71")]
+position = Vector2(-1999, -291)
+
+[node name="coin12" parent="Pièces" unique_id=1437064239 instance=ExtResource("5_ukt71")]
+position = Vector2(-1761, -348)
+
 [node name="Platformes" type="Node" parent="." unique_id=130310883]
 
 [node name="platforme -" parent="Platformes" unique_id=635649704 instance=ExtResource("3_dmi07")]
@@ -466,6 +478,42 @@ collision_mask = 2
 position = Vector2(-1385, 444)
 shape = SubResource("RectangleShape2D_oxop7")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=239990591]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1270044852]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelCoin" type="Label" parent="CanvasLayer/Control" unique_id=39349525 node_paths=PackedStringArray("label_to_affect")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.046000004
+anchor_right = 0.097
+anchor_bottom = 0.09200001
+offset_top = -0.40000153
+offset_right = -0.2000122
+offset_bottom = 0.19999695
+theme_override_fonts/font = ExtResource("13_3u5es")
+theme_override_font_sizes/font_size = 35
+text = "0"
+script = ExtResource("14_60efd")
+label_to_affect = NodePath(".")
+
+[node name="LabelTimer" type="Label" parent="CanvasLayer/Control" unique_id=283199933 node_paths=PackedStringArray("label_to_affect")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.104
+anchor_bottom = 0.040000003
+theme_override_fonts/font = ExtResource("13_3u5es")
+theme_override_font_sizes/font_size = 35
+text = "00:00"
+script = ExtResource("15_ow60o")
+label_to_affect = NodePath(".")
+
 [node name="Label" type="Label" parent="." unique_id=1838447189]
 offset_left = -1193.0
 offset_top = -412.0
@@ -473,5 +521,16 @@ offset_right = -1153.0
 offset_bottom = -389.0
 text = "Fin :)"
 
+[node name="Node" type="Node" parent="." unique_id=700213470]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=106540544]
+position = Vector2(-1150, -384)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1449011658]
+position = Vector2(-28, -80.5)
+shape = SubResource("RectangleShape2D_3u5es")
+
 [connection signal="body_entered" from="Levier/Area2D" to="Levier/Area2D" method="_on_body_entered"]
 [connection signal="on_levier_activated" from="Levier/Area2D" to="Levier/SpriteDoor/KillMe" method="kill_it"]
+[connection signal="body_entered" from="Area2D" to="CanvasLayer/Control/LabelTimer" method="stop_timer" unbinds=1]
